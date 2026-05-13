@@ -74,20 +74,16 @@ Provide analysis in this format:
 ## 📊 Notable Shifts
 
 ### Inflation Expectations
-- **2025 IPCA**: [value] ([change from 4w ago])
-- **Key observation**: [What changed and why it matters]
+[What changed and why it matters]
 
 ### Growth Outlook
-- **2025 GDP**: [value] ([change from 4w ago])
-- **Key observation**: [What changed and why it matters]
+[What changed and why it matters]
 
 ### FX & Rates
-- **2025 Câmbio**: [value] ([change])
-- **2025 Selic**: [value] ([change])
-- **Key observation**: [Implications for carry, policy]
+[Implications for carry, policy]
 
 ### Fiscal Metrics
-- [Notable changes in fiscal expectations]
+[Notable changes in fiscal expectations]
 
 ## 🔍 What This Means
 
@@ -107,12 +103,24 @@ Provide analysis in this format:
 
 ## 📈 Data Summary
 
-| Indicator | 2025 | 2026 | 2027 | 2028 | Trend |
-|-----------|------|------|------|------|-------|
-| IPCA | [val] | [val] | [val] | [val] | [↑/↓/→] |
-| PIB | [val] | [val] | [val] | [val] | [↑/↓/→] |
-| Câmbio | [val] | [val] | [val] | [val] | [↑/↓/→] |
-| Selic | [val] | [val] | [val] | [val] | [↑/↓/→] |
+Columns: latest values for 2026, 2027, 2028, then the 4-week change (latest vs 4w ago) for each year. Label the delta columns as "Δ2026 vs [4w-ago date]", "Δ2027 vs [4w-ago date]", "Δ2028 vs [4w-ago date]".
+
+| Indicator | 2026 | 2027 | 2028 | Δ2026 vs [date] | Δ2027 vs [date] | Δ2028 vs [date] |
+|---|---|---|---|---|---|---|
+| IPCA | | | | | | |
+| IPCA Adm. | | | | | | |
+| IGP-M | | | | | | |
+| PIB | | | | | | |
+| Câmbio | | | | | | |
+| Selic | | | | | | |
+| Primário | | | | | | |
+| Nominal | | | | | | |
+| Dívida Líq. | | | | | | |
+| Conta Corr. | | | | | | |
+| Bal. Com. | | | | | | |
+| IDE | | | | | | |
+
+*Câmbio: lower = stronger BRL. Δ = latest vs 4 weeks ago.*
 
 ---
 *Source: BCB Focus Survey - Market Median Expectations*

@@ -35,7 +35,6 @@ for r in results:
         research.append(f"## Article: {page['title']}\nURL: {page['url']}\n\n{text}")
 
 compiled = "\n\n---\n\n".join(research)
-print(compiled)
 ```
 
 ## Step 4: Synthesize
@@ -48,4 +47,25 @@ Write in strict Axios "Smart Brevity" style. Structure:
 
 Voice: Crisp, economical sentences. No metaphors, no fluff. Prioritize clarity and causality.
 Format: Bullets for data/insights. Paragraphs must be 1-2 lines max.
-Output requirements: Deliver the finished note only, followed by a "**Sources**" section listing each Wikipedia article accessed as a numbered list with title and URL.
+Output requirements: Do NOT display the brief in the terminal. Write it only to disk (Step 5). Include a "**Sources**" section at the end listing each Wikipedia article as a numbered list with title and URL.
+
+## Step 5: Save to disk
+After outputting the brief, save it to `~/claude_projects/wiki_client/wiki_briefs/`. Use a filename derived from the topic (lowercase, spaces replaced with underscores, `.md` extension). Example: topic "karl popper" → `karl_popper.md`.
+
+```python
+import os
+
+output_dir = os.path.expanduser("~/claude_projects/wiki_client/wiki_briefs")
+os.makedirs(output_dir, exist_ok=True)
+
+filename = topic.strip().lower().replace(" ", "_") + ".md"
+filepath = os.path.join(output_dir, filename)
+
+# brief_text should contain the full synthesized brief (including Sources section)
+with open(filepath, "w") as f:
+    f.write(brief_text)
+
+print(f"Saved to {filepath}")
+```
+
+Tell the user only the saved filepath. No other output.

@@ -33,6 +33,8 @@ Mirror `rba_watcher_standalone.py` exactly, adapting:
 | Output path | `reports/<cb-slug>-watcher/` |
 | `regenerate_index()` | Match `<cb>-watcher-*.html` glob |
 | `save_output()` | Correct filename prefix |
+| import | Add `from cb_monitor_utils import regenerate_cb_monitor` with the other imports |
+| hub call | Add `regenerate_cb_monitor(out_dir.parent.parent)` immediately after `regenerate_index(out_dir)` |
 
 **CB-specific prompt context to inject** (always include):
 - Current policy rate
@@ -50,19 +52,16 @@ Confirm: no import errors, all pages return HTTP 200, scrape summary shows > 0 i
 
 Fix any 404s by checking the CB website for the correct URL path before proceeding.
 
-### 4. index.html card
-Insert after the last existing watcher card in the `#section-central-banks` section:
-```html
-<article class="dashboard-card">
-    <div class="card-header">
-        <h3>[FLAG_EMOJI] [CB Name] Watcher</h3>
-        <p>All [N] [Committee Name] members tracked every 3 days — hawk/dove spectrum, [key theme 1], [key theme 2], powered by Gemma 4.</p>
-    </div>
-    <div class="card-actions">
-        <a href="reports/<cb-slug>-watcher/index.html" class="btn btn-primary">View Reports</a>
-    </div>
-</article>
+### 4. Register in the Central Bank Monitor hub
+The `#section-central-banks` section in `index.html` now has a single "Central Bank Monitor" card pointing to `reports/cb-monitor/index.html`. Do NOT add a new card there.
+
+Instead, append a new entry to `_SECTIONS` in `scripts/cb_monitor_utils.py`:
+```python
+("[FLAG_EMOJI] [CB Name] Watcher", "<cb-slug>-watcher", "<cb-slug>-watcher-*.html",
+ "<cb-slug>-watcher-", "[CB] Watcher",
+ "All [N] [Committee Name] members tracked every 3 days — hawk/dove spectrum, [key theme 1], [key theme 2], powered by Gemma 4."),
 ```
+The hub page (`reports/cb-monitor/index.html`) regenerates automatically on the next watcher run.
 
 ### 5. GitHub Actions workflow
 Copy `.github/workflows/update-boj-watcher.yml` to `.github/workflows/update-<cb>-watcher.yml`, replacing:
@@ -77,8 +76,8 @@ Cron schedule: `'0 9 */3 * *'` (every 3 days at 09:00 UTC) — keep consistent w
 
 ### 6. Commit and push
 ```bash
-git add scripts/<cb>_watcher_standalone.py index.html .github/workflows/update-<cb>-watcher.yml
-git commit -m "Add [CB] Watcher script, landing card, and Actions workflow"
+git add scripts/<cb>_watcher_standalone.py scripts/cb_monitor_utils.py .github/workflows/update-<cb>-watcher.yml
+git commit -m "Add [CB] Watcher script, hub entry, and Actions workflow"
 git pull --rebase
 git push
 ```
