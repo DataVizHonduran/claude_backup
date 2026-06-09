@@ -1,0 +1,4 @@
+requests
+huggingface_hub
+markdown
+pandas
